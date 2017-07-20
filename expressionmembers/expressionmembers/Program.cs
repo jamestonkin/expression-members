@@ -20,13 +20,7 @@ namespace expressionmembers
         public ICollection<string> Prey { get; } = new List<string>();
 
         // Convert this readonly property to an expression member
-        public string FormalName
-        {
-            get
-            {
-                return $"{this.Name} the {this.Species}";
-            }
-        }
+        public string FormalName => $"{this.Name} the {this.Species}";
 
         // Class constructor
         public Bug(string name, string species, List<string> predators, List<string> prey)
@@ -38,37 +32,30 @@ namespace expressionmembers
         }
 
         // Convert this method to an expression member
-        public string PreyList()
-        {
-            var commaDelimitedPrey = string.Join(",", this.Prey);
-            return commaDelimitedPrey;
-        }
+        public string PreyList() => string.Join(",", this.Prey);
 
         // Convert this method to an expression member
-        public string PredatorList()
-        {
-            var commaDelimitedPredators = string.Join(",", this.Predators);
-            return commaDelimitedPredators;
-        }
+        public string PredatorList() => string.Join(",", this.Predators);
 
         // Convert this to expression method (hint: use a C# ternary)
-        public string Eat(string food)
-        {
-            if (this.Prey.Contains(food))
-            {
-                return $"{this.Name} ate the {food}.";
-            }
-            else
-            {
-                return $"{this.Name} is still hungry.";
-            }
-        }
+        public string Eat(string food) => this.Prey.Contains(food) ? $"{this.Name} ate the {food}." : $"{this.Name} is still hungry.";
     }
 
     class Program
     {
         static void Main(string[] args)
         {
+            Bug grasshopper = new Bug("George", "Grasshopper", new List<string>() { "Bird", "Spider" }, new List<string>() { "Ants" });
+            Bug centipede = new Bug("Jana", "Centipede", new List<string>() { "Bird", "Cat", "Spider" }, new List<string>() { "Worms" });
+
+            Console.WriteLine($"{grasshopper.Name} {grasshopper.Species} {grasshopper.Predators} {grasshopper.Prey}");
+            Console.WriteLine($"\n{centipede.Name} {centipede.Species} {centipede.Predators} {centipede.Prey}");
+
+            Console.WriteLine(grasshopper.Eat("Ant"));
+            Console.WriteLine(grasshopper.Eat("Ants"));
+
+
+            Console.Read();
         }
     }
 }
